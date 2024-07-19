@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from './Components/Home/Home';
+import SignIn from './Components/Auth/SignIn';
+import NavBar from './CustomerPage/navBar/navBar';
+import HomePage from './CustomerPage/HomePage/HomePage';
+import CategoryItemLanding from "./CustomerPage/Components/CategoryItemLanding/CategoryItemLanding";
+import ItemListAndShop from "./CustomerPage/Components/ItemListAndShop/ItemListAndShop";
+import SignInCust from "./CustomerPage/Authentication/SignIn/SignInCust.jsx";
+import SignInUpPage from "./CustomerPage/Authentication/CustomerAuth/SignInUpPage.jsx";
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="/adminAuth" element={<SignIn />} />
+        <Route path="/ecommerce" element={<NavBar />}>
+          <Route index element={<HomePage />} />
+          <Route path=":category" element={<CategoryItemLanding />} />
+          <Route path=":category/:type" element={<ItemListAndShop />} />
+          <Route path="sign-in" element={<SignInUpPage/>}/>
+        </Route>
+
+
+      </Routes>
     </div>
   );
 }

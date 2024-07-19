@@ -1,0 +1,8 @@
+.sign-in-up-page-container{
+    display : flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left : 3rem;
+    margin-right : 3rem;
+    margin-top: 7rem;
+}

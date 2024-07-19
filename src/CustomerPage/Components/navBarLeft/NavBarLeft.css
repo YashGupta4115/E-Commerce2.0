@@ -1,0 +1,15 @@
+.left-section-container{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: 0.5rem;
+}
+.logo-container{
+    height: 70px;
+    width : 70px;
+    object-fit: cover;
+}
+
+.logo-image{
+    border-radius: 50%;
+}

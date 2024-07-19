@@ -1,0 +1,11 @@
+.right-container{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.general-icon-styles{
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;    
+}

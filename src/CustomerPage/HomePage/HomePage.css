@@ -1,0 +1,26 @@
+.home-page-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 1rem;
+    margin-top : 6rem;
+}
+.category-item{
+    width : 100%;
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 900px) {
+    .home-page-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .home-page-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
