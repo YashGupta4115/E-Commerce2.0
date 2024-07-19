@@ -1,8 +1,18 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import "./SignUp.css";
 
-export const Modal = () => {
-  return <div></div>;
+export const Modal = ({ modalContent, closeModal }) => {
+  useEffect(() => {
+    setTimeout(() => {
+      closeModal();
+    }, 2000);
+  });
+
+  return (
+    <div>
+      <p>{modalContent}</p>
+    </div>
+  );
 };
 
 const reducer = (state, action) => {
@@ -10,6 +20,12 @@ const reducer = (state, action) => {
     return {
       isModalOpen: true,
       modalContent: "password does not match",
+    };
+  }
+  if (action.type === "CLOSE_MODAL") {
+    return {
+      isModalOpen: false,
+      modalContent: "",
     };
   }
 };
@@ -44,6 +60,10 @@ const SignUp = () => {
     }
   };
 
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
+
   return (
     <div className="cust-sign-up-container">
       <form onSubmit={handleSubmit} className="sign-up-form">
@@ -56,7 +76,6 @@ const SignUp = () => {
             name="displayName"
             value={formData.displayName}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="form-group">
@@ -67,7 +86,6 @@ const SignUp = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="form-group">
@@ -78,7 +96,6 @@ const SignUp = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="form-group">
@@ -89,9 +106,11 @@ const SignUp = () => {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            required
           />
         </div>
+        {state.isModalOpen && (
+          <Modal modalContent={state.modalContent} closeModal={closeModal} />
+        )}
         <button type="submit" className="sign-up-button">
           Sign Up
         </button>
