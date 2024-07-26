@@ -1,25 +1,40 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import "./SignInCust.css";
 import {
   signInWithGooglePopUp,
   createUserDocumentFromAuth,
+  signInAuthWithEmailAndPassword,
 } from "../../../Firebase/firebase";
-import SignUp from "../SignUp/SignUp";
+import { defaultState, Modal, reducer } from "../SignUp/SignUp";
 const SignInCust = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopUp();
     createUserDocumentFromAuth(user);
   };
 
-  const handleSubmit = (e) => {
+  const [state, dispatch] = useReducer(reducer, defaultState);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+
+    try {
+      const response = await signInAuthWithEmailAndPassword(email, password);
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+      dispatch({ type: e.code });
+    }
+
     setEmail("");
     setPassword("");
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
 
   return (
     <div className="sign-in-for-customer-container">
@@ -48,8 +63,14 @@ const SignInCust = () => {
             required
           />
         </div>
+        {state.isModalOpen && (
+          <Modal modalContent={state.modalContent} closeModal={closeModal} />
+        )}
         <button type="submit" className="sign-up-button">
           Sign In
+        </button>
+        <button className="sign-up-button" onClick={signInWithGooglePopUp}>
+          Sign In With Google
         </button>
       </form>
     </div>

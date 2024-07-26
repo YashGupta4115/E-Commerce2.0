@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
 import "./SignUp.css";
+import { createAuthUserWithEmailAndPassword } from "../../../Firebase/firebase";
 
 export const Modal = ({ modalContent, closeModal }) => {
   useEffect(() => {
@@ -15,11 +16,11 @@ export const Modal = ({ modalContent, closeModal }) => {
   );
 };
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   if (action.type === "PASSWORD_NOT_MATCHING") {
     return {
       isModalOpen: true,
-      modalContent: "password does not match",
+      modalContent: "Passwords does not match",
     };
   }
   if (action.type === "CLOSE_MODAL") {
@@ -28,9 +29,31 @@ const reducer = (state, action) => {
       modalContent: "",
     };
   }
+  if (action.type === "Firebase: Error (auth/email-already-in-use).") {
+    return {
+      isModalOpen: true,
+      modalContent: "Email already in use",
+    };
+  }
+  if (
+    action.type ===
+    "Firebase: Password should be at least 6 characters (auth/weak-password)."
+  ) {
+    return {
+      isModalOpen: true,
+      modalContent: "Password must be of atleast 6 characters",
+    };
+  }
+
+  if ((action.type = "auth/invalid-credential")) {
+    return {
+      isModalOpen: true,
+      modalContent: "Invalid credential",
+    };
+  }
 };
 
-const defaultState = {
+export const defaultState = {
   isModalOpen: false,
   modalContent: "",
 };
@@ -53,10 +76,27 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.confirmPassword !== formData.password) {
       dispatch({ type: "PASSWORD_NOT_MATCHING" });
+    } else {
+      try {
+        const response = await createAuthUserWithEmailAndPassword(
+          formData.email,
+          formData.password
+        );
+
+        setFormData({
+          email: "",
+          password: "",
+          confirmPassword: "",
+          displayName: "",
+        });
+      } catch (error) {
+        console.log("user creation error", error.message);
+        dispatch({ type: error.message });
+      }
     }
   };
 
@@ -74,6 +114,7 @@ const SignUp = () => {
             type="text"
             id="displayName"
             name="displayName"
+            placeholder="UserName"
             value={formData.displayName}
             onChange={handleChange}
           />
@@ -84,6 +125,7 @@ const SignUp = () => {
             type="email"
             id="email"
             name="email"
+            placeholder="Email"
             value={formData.email}
             onChange={handleChange}
           />
@@ -94,6 +136,7 @@ const SignUp = () => {
             type="password"
             id="password"
             name="password"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
           />
@@ -104,6 +147,7 @@ const SignUp = () => {
             type="password"
             id="confirmPassword"
             name="confirmPassword"
+            placeholder="Confirm Password"
             value={formData.confirmPassword}
             onChange={handleChange}
           />

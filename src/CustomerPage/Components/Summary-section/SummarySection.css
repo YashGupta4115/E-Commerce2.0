@@ -1,0 +1,16 @@
+.summary-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 30%;
+    margin-left: 1rem;
+}
+
+.individual-price-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}

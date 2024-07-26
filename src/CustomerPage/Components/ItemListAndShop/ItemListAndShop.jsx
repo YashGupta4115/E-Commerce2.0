@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { clothData } from "../../../Assests/data";
 import "./ItemListAndShop.css";
+import { cartContext } from "../../../Context/cartContext";
 
 const ItemListAndShop = () => {
   const { category, type } = useParams();
+  const { addItemToCart } = useContext(cartContext);
   const items = clothData.filter(
     (item) => item.type === category && item.wearType === type
   );
+
+  const addItemToCartHandler = (item) => {
+    addItemToCart(item);
+  };
 
   return (
     <div className="selected-item-list-shop-container">
@@ -27,7 +33,9 @@ const ItemListAndShop = () => {
                 {index}
               </p>
               <p>Price: ${item.price}</p>
-              <button>Add to Cart</button>
+              <button onClick={() => addItemToCartHandler(item)}>
+                Add to Cart
+              </button>
             </div>
           </div>
         ))}

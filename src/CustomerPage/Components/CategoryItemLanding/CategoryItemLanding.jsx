@@ -35,7 +35,7 @@ const CategoryItemLanding = () => {
               <div style={{ marginBottom: "0.5rem", fontSize: "18px" }}>
                 {data}
               </div>
-              <div>
+              <div classname="categoryItem-image-container">
                 <img
                   className="categoryItem-image"
                   src={require(`../../../Assests/${category}Wear/${data}.jpg`)}
