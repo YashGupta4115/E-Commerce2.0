@@ -7,7 +7,7 @@ import { HiOutlineShoppingCart } from "react-icons/hi2";
 import "./NavBarRight.css";
 import { useNavigate } from "react-router-dom";
 import { cartContext } from "../../../Context/cartContext";
-import CartDropDown from "../CartDropDown/CartDropDown";
+// import CartDropDown from "../CartDropDown/CartDropDown";
 
 const NavBarRight = () => {
   const navigate = useNavigate();

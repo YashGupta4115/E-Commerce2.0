@@ -6,7 +6,6 @@ import NavBar from './CustomerPage/navBar/navBar';
 import HomePage from './CustomerPage/HomePage/HomePage';
 import CategoryItemLanding from "./CustomerPage/Components/CategoryItemLanding/CategoryItemLanding";
 import ItemListAndShop from "./CustomerPage/Components/ItemListAndShop/ItemListAndShop";
-import SignInCust from "./CustomerPage/Authentication/SignIn/SignInCust.jsx";
 import SignInUpPage from "./CustomerPage/Authentication/CustomerAuth/SignInUpPage.jsx";
 import CheckOutPage from "./CustomerPage/Components/CheckOutPage/CheckOutPage.jsx";
 

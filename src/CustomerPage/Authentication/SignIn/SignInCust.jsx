@@ -15,6 +15,8 @@ const SignInCust = () => {
     createUserDocumentFromAuth(user);
   };
 
+  console.log(logGoogleUser);
+
   const [state, dispatch] = useReducer(reducer, defaultState);
 
   const handleSubmit = async (e) => {

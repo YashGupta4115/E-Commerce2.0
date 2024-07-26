@@ -68,7 +68,7 @@ const Modal = ({ message, closeModal }) => {
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [signInSuccess, setSignInSuccess] = useState(false);
+  // const [signInSuccess, setSignInSuccess] = useState(false);
 
   const [state, dispatch] = useReducer(reducer, defaultState);
 
@@ -99,7 +99,7 @@ const SignIn = () => {
     // console.log(auth.currentUser);
   };
 
-  const { currentUser } = useContext(EmpContext);  
+  const { currentUser } = useContext(EmpContext);
 
   useEffect(() => {
     if (currentUser) {

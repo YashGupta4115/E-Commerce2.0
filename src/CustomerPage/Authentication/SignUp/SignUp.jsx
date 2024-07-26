@@ -86,6 +86,7 @@ const SignUp = () => {
           formData.email,
           formData.password
         );
+        console.log(response);
 
         setFormData({
           email: "",
