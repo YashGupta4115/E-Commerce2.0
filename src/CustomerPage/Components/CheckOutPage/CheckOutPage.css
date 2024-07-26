@@ -1,16 +1,29 @@
 .check-out-page-container{
     display: flex;
+    margin-top: 7rem;
+}
+.check-out-page-item-list{
+    display: flex;
     justify-content: center;
+    flex-direction: column;
     width : 100%;
     height: 100%;
-    margin-top : 7rem;
 }
-
 .header-titles{
     display: flex;
     justify-content: space-between;
-    width: 100%;
     margin-left : 1rem;
-    margin-right : 1rem;
+    margin-right: 1rem;
+    padding: 20px;
+    background-color: rgb(91, 90, 90);
+    color: white;
 }
+.check-out-page-row{
+    display: flex;
+    justify-content: space-between;
+    margin : 1rem;
+    padding: 20px;
+    text-align: center;
+}
+
 

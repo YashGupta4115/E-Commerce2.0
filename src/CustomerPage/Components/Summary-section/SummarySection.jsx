@@ -6,6 +6,7 @@ const SummarySection = ({ discount, delivery }) => {
   const { cartItems, totalPrice } = useContext(cartContext);
   return (
     <div className="summary-section">
+      <div className="header-titles">Summary</div>
       <div className="individual-price-container">
         Price{`(${Object.keys(cartItems).length})`} : Rs. {totalPrice}
       </div>
@@ -17,7 +18,7 @@ const SummarySection = ({ discount, delivery }) => {
       </div>
       <div className="individual-price-container">
         Total Amount {`(${Object.keys(cartItems).length})`} : Rs.{" "}
-        {totalPrice - discount - delivery}
+        {totalPrice - discount + delivery}
       </div>
     </div>
   );
