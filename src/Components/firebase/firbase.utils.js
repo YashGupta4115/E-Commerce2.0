@@ -16,6 +16,7 @@ const firebaseConfig = {
   measurementId: "G-MV440YHM0Y"
 };
 
+// eslint-disable-next-line no-unused-vars
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth();

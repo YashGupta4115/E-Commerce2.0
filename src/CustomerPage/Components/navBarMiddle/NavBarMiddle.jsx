@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 export const UrlExtract = () => {
+  // eslint-disable-next-line no-unused-vars
   const location = useLocation();
   const url = new URL(window.location.href);
 
