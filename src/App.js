@@ -8,6 +8,7 @@ import CategoryItemLanding from "./CustomerPage/Components/CategoryItemLanding/C
 import ItemListAndShop from "./CustomerPage/Components/ItemListAndShop/ItemListAndShop";
 import SignInUpPage from "./CustomerPage/Authentication/CustomerAuth/SignInUpPage.jsx";
 import CheckOutPage from "./CustomerPage/Components/CheckOutPage/CheckOutPage.jsx";
+import AllItems from "./CustomerPage/Components/All_ItemsForSearch/AllItems.jsx";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path=":category/:type" element={<ItemListAndShop />} />
           <Route path="sign-in" element={<SignInUpPage/>}/>
           <Route path='checkout' element={<CheckOutPage/>}/>
+          <Route path='search' element={<AllItems/>}/>
         </Route>
 
       </Routes>

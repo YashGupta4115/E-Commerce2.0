@@ -7,7 +7,7 @@ import { GoChevronLeft } from "react-icons/go";
 import { GoChevronRight } from "react-icons/go";
 
 const CheckOutPage = () => {
-  const { cartItems, reduceItemQuantity, addItemToCart } =
+  const { cartItems, reduceItemQuantity, addItemToCart, removeItemFromCart } =
     useContext(cartContext);
   const [discount, setDiscount] = useState(0);
   const [delivery, setDelivery] = useState(0);
@@ -33,6 +33,7 @@ const CheckOutPage = () => {
           <div className="header-title">Quantity</div>
           <div className="header-title">Price</div>
           <div className="header-title">Amount</div>
+          <div> </div>
         </div>
         {cartItems.length === 0 ? (
           <div style={{ margin: "1rem" }}>
@@ -58,6 +59,11 @@ const CheckOutPage = () => {
                 </div>
                 <div>Rs. {item.price}</div>
                 <div>Rs. {item.price * item.quantity}</div>
+                <div>
+                  <button onClick={() => removeItemFromCart(item)}>
+                    Remove
+                  </button>
+                </div>
               </div>
             );
           })

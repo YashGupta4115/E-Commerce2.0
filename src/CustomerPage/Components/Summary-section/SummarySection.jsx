@@ -4,6 +4,10 @@ import "./SummarySection.css";
 
 const SummarySection = ({ discount, delivery }) => {
   const { cartItems, totalPrice } = useContext(cartContext);
+  const paymentHandler = () => {
+    // Make API call to process payment
+    // Redirect to payment gateway
+  };
   return (
     <div className="summary-section">
       <div className="header-titles">Summary</div>
@@ -20,6 +24,9 @@ const SummarySection = ({ discount, delivery }) => {
         Total Amount {`(${Object.keys(cartItems).length})`} : Rs.{" "}
         {totalPrice - discount + delivery}
       </div>
+      <button className="individual-price-container" onClick={paymentHandler}>
+        Process Payment
+      </button>
     </div>
   );
 };
