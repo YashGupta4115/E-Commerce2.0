@@ -5,8 +5,7 @@ import {
   auth,
   signInAuthWithEmailAndPassword,
 } from "../firebase/firbase.utils";
-import App from "../../App";
-import { EmpContext } from "../../Context/userContext";
+// import { EmpContext } from "../../Context/userContext";
 
 const reducer = (state, action) => {
   if (action.type === "NO_EMAIL") {
@@ -42,10 +41,6 @@ const reducer = (state, action) => {
       isModalOpen: true,
       message: "User not found",
     };
-  }
-
-  if (action.type === "USER_AUTHENTICATED") {
-    return <App />;
   }
 };
 
@@ -98,14 +93,6 @@ const SignIn = () => {
     SignOutAuth(auth);
     // console.log(auth.currentUser);
   };
-
-  const { currentUser } = useContext(EmpContext);
-
-  useEffect(() => {
-    if (currentUser) {
-      dispatch({ type: "USER_AUTHENTICATED" });
-    }
-  });
 
   const closeModal = () => {
     dispatch({ type: "CLOSE_MODAL" });

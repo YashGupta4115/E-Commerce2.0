@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { EmpProvider } from './Context/userContext';
+import { UserProvider } from './Context/userContext';
 import { CartContextProvider } from './Context/cartContext';
 import { SearchContextProvider } from './Context/searchContext';
 
@@ -12,13 +12,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <EmpProvider>
+    <UserProvider>
       <SearchContextProvider>
       <CartContextProvider>
     <App />
       </CartContextProvider>
       </SearchContextProvider>
-    </EmpProvider>
+    </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

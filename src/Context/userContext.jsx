@@ -1,27 +1,27 @@
-import { createContext, useEffect, useState } from "react";
-import {
-  createEmpDocumentFromAuth,
-  onEmpStateChangedListener,
-} from "../Components/firebase/firbase.utils";
+import { createContext, useState } from "react";
 
-export const EmpContext = createContext({
+export const UserContext = createContext({
   currentEmp: null,
   setCurrentEmp: () => null,
+  currentUser: null,
+  setCurrentUser: () => null,
+  isAuthDropDownOpen: false,
+  setIsAuthDropDownOpen: () => null,
 });
 
-export const EmpProvider = ({ children }) => {
+export const UserProvider = ({ children }) => {
   const [currentEmp, setCurrentEmp] = useState(null);
-  const value = { currentEmp, setCurrentEmp };
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isAuthDropDownOpen, setIsAuthDropDownOpen] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = onEmpStateChangedListener((emp) => {
-      if (emp) {
-        createEmpDocumentFromAuth(emp);
-      }
-      setCurrentEmp(emp);
-    });
-    return unsubscribe;
-  });
+  const value = {
+    currentEmp,
+    setCurrentEmp,
+    currentUser,
+    setCurrentUser,
+    isAuthDropDownOpen,
+    setIsAuthDropDownOpen,
+  };
 
-  return <EmpContext.Provider value={value}>{children}</EmpContext.Provider>;
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

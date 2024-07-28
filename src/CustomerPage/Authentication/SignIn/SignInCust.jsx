@@ -1,21 +1,50 @@
-import React, { useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import "./SignInCust.css";
 import {
   signInWithGooglePopUp,
   createUserDocumentFromAuth,
   signInAuthWithEmailAndPassword,
+  auth,
 } from "../../../Firebase/firebase";
 import { defaultState, Modal, reducer } from "../SignUp/SignUp";
+import { UserContext } from "../../../Context/userContext";
+import { useNavigate } from "react-router-dom";
 const SignInCust = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setCurrentUser } = useContext(UserContext);
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(
+      (user) => {
+        setCurrentUser(user);
+        if (user != null) {
+          navigate("/ecommerce");
+        }
+      },
+      [setCurrentUser]
+    );
+
+    return () => unsubscribe();
+  });
+
+  //eslint-disable-next-line no-unused-vars
   const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopUp();
-    createUserDocumentFromAuth(user);
+    try {
+      const { user } = await signInWithGooglePopUp();
+      //eslint-disable-next-line no-unused-vars
+      const response = await createUserDocumentFromAuth(user);
+    } catch (err) {
+      if (err.code === "auth/popup-closed-by-user") {
+        console.log("Popup closed by user");
+        dispatch({ type: "POPUP_CLOSED_BY_USER" });
+      } else {
+        console.log(err);
+        dispatch({ type: err.code });
+      }
+    }
   };
-
-  console.log(logGoogleUser);
 
   const [state, dispatch] = useReducer(reducer, defaultState);
 
@@ -23,8 +52,8 @@ const SignInCust = () => {
     e.preventDefault();
 
     try {
-      const response = await signInAuthWithEmailAndPassword(email, password);
-      console.log(response);
+      //eslint-disable-next-line no-unused-vars
+      const { user } = await signInAuthWithEmailAndPassword(email, password);
     } catch (e) {
       console.log(e);
       dispatch({ type: e.code });
@@ -71,7 +100,11 @@ const SignInCust = () => {
         <button type="submit" className="sign-up-button">
           Sign In
         </button>
-        <button className="sign-up-button" onClick={signInWithGooglePopUp}>
+        <button
+          type="button"
+          className="sign-up-button"
+          onClick={signInWithGooglePopUp}
+        >
           Sign In With Google
         </button>
       </form>

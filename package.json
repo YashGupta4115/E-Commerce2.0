@@ -41,6 +41,6 @@
     "build": "CI=false react-scripts build"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object":"*"
+    "@babel/plugin-proposal-private-property-in-object": "*"
   }
 }

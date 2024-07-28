@@ -8,11 +8,17 @@ import "./NavBarRight.css";
 import { useNavigate } from "react-router-dom";
 import { cartContext } from "../../../Context/cartContext";
 import { searchContext } from "../../../Context/searchContext";
+import { UserContext } from "../../../Context/userContext";
+import { signOutAuth } from "../../../Firebase/firebase";
+import AuthDropDown from "../AuthDropDown/AuthDropDown";
 
 const NavBarRight = () => {
   const navigate = useNavigate();
   const { setIsCartOpen } = useContext(cartContext);
   const { setSearchText } = useContext(searchContext);
+  const { currentUser, isAuthDropDownOpen, setIsAuthDropDownOpen } =
+    useContext(UserContext);
+  console.log(currentUser);
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
 
   const onSearchHandler = () => {
@@ -41,11 +47,22 @@ const NavBarRight = () => {
       <div className="langaugeToggle-container">
         <FaLanguage className="general-icon-styles" />
       </div>
-      <div
-        className="userAuth-container"
-        onClick={() => navigate("/ecommerce/sign-in")}
-      >
-        <FaUser className="general-icon-styles" />
+      <div className="userAuth-container">
+        <div
+          className="userAuth-main"
+          onClick={() => setIsAuthDropDownOpen(!isAuthDropDownOpen)}
+        >
+          {currentUser ? (
+            <div>currentUser.displayName</div>
+          ) : (
+            <FaUser className="general-icon-styles" />
+          )}
+        </div>
+        {isAuthDropDownOpen && (
+          <div className="userAuth-dropDown">
+            <AuthDropDown />
+          </div>
+        )}
       </div>
     </div>
   );

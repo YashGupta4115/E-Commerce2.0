@@ -1,0 +1,71 @@
+.auth-dropDown-container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10;
+    right: 2rem;
+    top: 3.5rem;
+    border-radius: 10px;
+    color: black;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0px 0px 12px;
+}
+
+.auth-login-button{
+    position: absolute;
+    bottom : 0.5rem;
+    width: 92%;
+}
+
+.navPopUp-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navPopUp-toggleIcon {
+    cursor: pointer;
+}
+.options-section{
+    margin-top: 1rem;
+}
+.options-section-individual-items{
+    padding: 8px;
+}
+.options-section-individual-items:hover{
+    
+    border-radius: 8px;
+    background-color: black;
+    color :white
+}
+
+@media only screen and (max-width : 760px) {
+    .auth-container {
+        right: 7.5rem;
+        top: 3rem;
+    }
+}
+
+@media only screen and (max-width : 500px) {
+    .auth-container {
+        left: 5rem;
+    }
+}
+
+@media only screen and (max-width : 420px) {
+    .auth-container {
+        height: 200px;
+        width: 250px;
+        left: 3.5rem;
+    }
+}
+
+@media only screen and (max-width : 420px) {
+    .auth-container {
+        height: 200px;
+        width: 250px;
+        left: 1.8rem;
+    }
+}
