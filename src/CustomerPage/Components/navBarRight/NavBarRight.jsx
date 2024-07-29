@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { cartContext } from "../../../Context/cartContext";
 import { searchContext } from "../../../Context/searchContext";
 import { UserContext } from "../../../Context/userContext";
-import { signOutAuth } from "../../../Firebase/firebase";
 import AuthDropDown from "../AuthDropDown/AuthDropDown";
 
 const NavBarRight = () => {

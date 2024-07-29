@@ -29,7 +29,12 @@ const AuthDropDown = () => {
         />
       </div>
       <div className="options-section">
-        <div className="options-section-individual-items">Raise a Issue</div>
+        <div
+          className="options-section-individual-items"
+          onClick={() => navigate("/ecommerce/serviceDesk")}
+        >
+          Raise a Issue
+        </div>
       </div>
       <div>
         {currentUser ? (

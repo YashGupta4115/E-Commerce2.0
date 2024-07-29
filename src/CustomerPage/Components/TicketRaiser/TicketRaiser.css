@@ -1,0 +1,7 @@
+.ticket-raise-container{
+    display : flex;
+    flex-direction: column;
+    margin-top : 7rem;
+    margin-left : 15rem;
+    margin-right: 15rem;
+}

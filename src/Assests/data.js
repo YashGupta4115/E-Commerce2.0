@@ -260,3 +260,47 @@ export const clothData = [
   { artNo: 93, price: 2200, stock: 11, artImage: '', type: 'Formals', wearType: 'Suit' },
   { artNo: 94, price: 2050, stock: 12, artImage: '', type: 'Formals', wearType: 'Tie' },
     ]
+
+export const serviceDeskData = [
+    {
+        id : 1,
+        type : 'FAQs',
+        isOpen : false,
+        question : 'How can I check the stock of my favorite artwork?',
+        answer : 'You can find the stock of your favorite artwork in the Art Gallery section of the website. Simply search for the artwork by its art number or name, and you will be able to see the current stock level.'
+    },
+    {
+        id : 2,
+        type : 'FAQs',
+        isOpen : false,
+        question : 'How can I get in touch with the art gallery?',
+        answer : 'You can reach out to the art gallery by filling out a contact form on their website. They will respond to your inquiry within 24 hours.'
+    },
+    {
+        id : 3,
+        type : 'FAQs',
+        isOpen : false,
+        question : 'What are the shipping options for orders?',
+        answer : "The shipping options for orders can vary depending on the artwork's location and the shipping company you choose. You can find the available options on the Art Gallery website."
+    },
+    {
+        id : 4,
+        type : 'FAQs',
+        question : 'What are the payment options for orders?',
+        answer : 'You can choose from various payment options, such as PayPal, Stripe, or credit card, on the Art Gallery website. The exact payment process will depend on the chosen payment method.',
+    },
+    {
+        id : 5,
+        type : 'FAQs',
+        isOpen : false,
+        question : 'Can I return or exchange an artwork?',
+        answer : 'Yes, you can return or exchange an artwork at the Art Gallery. To do so, please contact us at the provided contact information and provide the necessary proof of purchase, such as a receipt or invoice.'
+    },
+    {
+        id : 6,
+        type : 'FAQs',
+        isOpen : false,
+        question : 'What are the terms and conditions for using the Art Gallery website?',
+        answer : 'The Art Gallery website offers a variety of terms and conditions, including the use of cookies, data protection, and the ability to opt-out of certain features. Please review the terms and conditions on the website.'
+    }
+]
