@@ -17,6 +17,7 @@ const AuthDropDown = () => {
   const signOutHandler = async () => {
     await signOutAuth(currentUser);
     setCurrentUser(null);
+    navigate("/ecommerce");
   };
 
   return (

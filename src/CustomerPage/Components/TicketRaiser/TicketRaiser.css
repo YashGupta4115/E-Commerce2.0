@@ -1,7 +1,21 @@
 .ticket-raise-container{
     display : flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-top : 7rem;
-    margin-left : 15rem;
-    margin-right: 15rem;
+}
+.raise-ticket-form{
+    display: flex;
+    flex-direction: column;
+    margin-top : 2rem;
+    width: 25%;
+}
+.raise-ticket-form-part{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px black;
+    border-radius: 5px;
 }

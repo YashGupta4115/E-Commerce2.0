@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./ServiceDesk.css";
 import { serviceDeskData } from "../../Assests/data";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../Context/userContext";
 
 const ServiceDesk = () => {
   const [isFaqOpen, setIsFaqOpen] = useState(false);
   const [openFaqId, setOpenFaqId] = useState(-1);
   const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
 
   const faqData = serviceDeskData.filter((data) => data.type === "FAQs");
 
@@ -16,6 +18,15 @@ const ServiceDesk = () => {
     setOpenFaqId(data.id);
     setIsFaqOpen(!isFaqOpen);
   };
+
+  const ticketRaiserHandler = () => {
+    if (currentUser) {
+      navigate("/ecommerce/serviceDesk/raise-a-ticket");
+    } else {
+      navigate("/ecommerce/sign-in");
+    }
+  };
+
   return (
     <div className="ServiceDeskPage">
       <div className="faqs-container">
@@ -47,7 +58,7 @@ const ServiceDesk = () => {
         <button
           type="button"
           className="service-desk-button"
-          onClick={() => navigate("/ecommerce/serviceDesk/raise-a-ticket")}
+          onClick={ticketRaiserHandler}
         >
           Issue ? Raise a Ticket !
         </button>
