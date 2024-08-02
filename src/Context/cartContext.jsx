@@ -1,4 +1,6 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { getAuthDocuments, updateCartItems } from "../Firebase/firebase";
+import { UserContext } from "./userContext";
 
 export const cartContext = createContext();
 
@@ -6,6 +8,20 @@ export const CartContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const { currentUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      if (currentUser) {
+        setIsLoading(true);
+        const fetchedCartItems = await getAuthDocuments(currentUser.uid);
+        setCartItems(fetchedCartItems.cart);
+        setIsLoading(false);
+      }
+    };
+    fetchCartItems();
+  }, [currentUser]);
 
   useEffect(() => {
     const newTotalPrice = Object.values(cartItems).reduce(
@@ -13,7 +29,10 @@ export const CartContextProvider = ({ children }) => {
       0
     );
     setTotalPrice(newTotalPrice);
-  }, [cartItems]);
+    if (currentUser && !isLoading) {
+      updateCartItems(currentUser.uid, cartItems);
+    }
+  }, [cartItems, currentUser, isLoading]);
 
   const addItemToCart = (newItem) => {
     setCartItems((prevItems) => ({
@@ -59,6 +78,7 @@ export const CartContextProvider = ({ children }) => {
     isCartOpen,
     setIsCartOpen,
     cartItems,
+    setCartItems,
     addItemToCart,
     removeItemFromCart,
     reduceItemQuantity,

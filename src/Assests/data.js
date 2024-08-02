@@ -1,4 +1,4 @@
-export const clothData = [
+export const clothData1 = [
         {
             artNo : 1,
             price : 200,
@@ -6,7 +6,6 @@ export const clothData = [
             artImage : '',
             type: 'Mens',
             wearType: 'Shirts'
-            
         },
         {
             artNo : 2,
@@ -261,7 +260,7 @@ export const clothData = [
   { artNo: 94, price: 2050, stock: 12, artImage: '', type: 'Formals', wearType: 'Tie' },
     ]
 
-export const serviceDeskData = [
+export const serviceDeskData1 = [
     {
         id : 1,
         type : 'FAQs',

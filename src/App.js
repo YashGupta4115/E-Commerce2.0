@@ -11,6 +11,7 @@ import CheckOutPage from "./CustomerPage/Components/CheckOutPage/CheckOutPage.js
 import AllItems from "./CustomerPage/Components/All_ItemsForSearch/AllItems.jsx";
 import ServiceDesk from "./CustomerPage/ServiceDesk/ServiceDesk.jsx";
 import TicketRaiser from "./CustomerPage/Components/TicketRaiser/TicketRaiser.jsx";
+import AllIssues from "./CustomerPage/Components/AllIssues/AllIssues.jsx";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path='search' element={<AllItems/>}/>
           <Route path="serviceDesk" element={<ServiceDesk/>}/>
           <Route path='serviceDesk/raise-a-ticket' element={<TicketRaiser/>} />
+          <Route path='serviceDesk/allIssues' element={<AllIssues/>}/>
         </Route>
         
       </Routes>

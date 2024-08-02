@@ -15,26 +15,23 @@ const SignInCust = () => {
   const [password, setPassword] = useState("");
   const { setCurrentUser } = useContext(UserContext);
 
+  // Handling user state change
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(
-      (user) => {
-        setCurrentUser(user);
-        if (user != null) {
-          navigate("/ecommerce");
-        }
-      },
-      [setCurrentUser]
-    );
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      if (user) {
+        navigate("/ecommerce");
+      }
+    });
 
     return () => unsubscribe();
-  });
-
-  //eslint-disable-next-line no-unused-vars
+  }, [setCurrentUser, navigate]); // Added `navigate` to the dependency array
+  // Google Sign-In handler
   const logGoogleUser = async () => {
     try {
       const { user } = await signInWithGooglePopUp();
-      //eslint-disable-next-line no-unused-vars
-      const response = await createUserDocumentFromAuth(user);
+      await createUserDocumentFromAuth(user);
+      setCurrentUser(user); // Make sure to set the current user
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") {
         console.log("Popup closed by user");
@@ -48,12 +45,14 @@ const SignInCust = () => {
 
   const [state, dispatch] = useReducer(reducer, defaultState);
 
+  // Email/Password Sign-In handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      //eslint-disable-next-line no-unused-vars
       const { user } = await signInAuthWithEmailAndPassword(email, password);
+      await createUserDocumentFromAuth(user);
+      setCurrentUser(user); // Make sure to set the current user
     } catch (e) {
       console.log(e);
       dispatch({ type: e.code });
@@ -103,7 +102,7 @@ const SignInCust = () => {
         <button
           type="button"
           className="sign-up-button"
-          onClick={signInWithGooglePopUp}
+          onClick={logGoogleUser}
         >
           Sign In With Google
         </button>

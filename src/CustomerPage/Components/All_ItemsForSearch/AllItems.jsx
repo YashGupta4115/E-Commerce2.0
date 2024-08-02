@@ -1,13 +1,14 @@
 import { searchContext } from "../../../Context/searchContext";
 import "./AllItem.css";
-import { clothData } from "../../../Assests/data";
 
 import React, { useContext } from "react";
 import { cartContext } from "../../../Context/cartContext";
+import { docContext } from "../../../Context/docsContext";
 
 const AllItems = () => {
   const { searchText } = useContext(searchContext);
   const { addItemToCart } = useContext(cartContext);
+  const { clothData } = useContext(docContext);
   let filteredItems = clothData.filter((item) => {
     return item.wearType.toLowerCase().includes(searchText.toLowerCase());
   });

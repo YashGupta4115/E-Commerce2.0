@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { clothData } from "../../../Assests/data";
 import "./CategoryItemLanding.css";
+import { docContext } from "../../../Context/docsContext";
 
 export const getUniqueTypesFromList = (data) => {
   const types = data.map((item) => item.wearType);
@@ -9,10 +9,16 @@ export const getUniqueTypesFromList = (data) => {
 };
 
 const CategoryItemLanding = () => {
+  const { clothData } = useContext(docContext);
   const { category } = useParams();
   const navigate = useNavigate();
+  // Ensure the category is valid and exists in clothData
+  if (!clothData[category.toLowerCase()]) {
+    return <div>Category not found</div>;
+  }
 
-  const getDataForUrlType = clothData.filter((item) => item.type === category);
+  const getDataForUrlType = clothData[category.toLowerCase()];
+
   const uniqueData = getUniqueTypesFromList(getDataForUrlType);
 
   const navigateHandler = (data) => {
@@ -35,7 +41,7 @@ const CategoryItemLanding = () => {
               <div style={{ marginBottom: "0.5rem", fontSize: "18px" }}>
                 {data}
               </div>
-              <div classname="categoryItem-image-container">
+              <div className="categoryItem-image-container">
                 <img
                   className="categoryItem-image"
                   src={require(`../../../Assests/${category}Wear/${data}.jpg`)}

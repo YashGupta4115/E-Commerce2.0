@@ -36,6 +36,12 @@ const AuthDropDown = () => {
         >
           Raise a Issue
         </div>
+        <div
+          className="options-section-individual-items"
+          onClick={() => navigate("/ecommerce/serviceDesk/allIssues")}
+        >
+          All issues
+        </div>
       </div>
       <div>
         {currentUser ? (

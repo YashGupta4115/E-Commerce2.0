@@ -17,7 +17,6 @@ const NavBarRight = () => {
   const { setSearchText } = useContext(searchContext);
   const { currentUser, isAuthDropDownOpen, setIsAuthDropDownOpen } =
     useContext(UserContext);
-  console.log(currentUser);
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
 
   const onSearchHandler = () => {
@@ -52,7 +51,7 @@ const NavBarRight = () => {
           onClick={() => setIsAuthDropDownOpen(!isAuthDropDownOpen)}
         >
           {currentUser ? (
-            <div>currentUser.displayName</div>
+            <div>{currentUser.displayName}</div>
           ) : (
             <FaUser className="general-icon-styles" />
           )}

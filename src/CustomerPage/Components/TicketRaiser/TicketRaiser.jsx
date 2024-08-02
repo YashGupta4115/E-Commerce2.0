@@ -1,12 +1,17 @@
+import { queryContext } from "../../../Context/queryContext";
 import "./TicketRaiser.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 const TicketRaiser = () => {
-  const [issueLevel, setIssueLevel] = useState(null);
+  const [issueLevel, setIssueLevel] = useState("low");
   const [orderTitle, setTitle] = useState(null);
   const [descp, setDescp] = useState(null);
+  const { addQueries } = useContext(queryContext);
   const handleTicketRaiser = () => {
-    console.log(issueLevel, orderTitle, descp);
+    const createdAt = new Date();
+    const status = "pending";
+    const issue = { issueLevel, orderTitle, descp, createdAt, status };
+    addQueries(issue);
   };
   return (
     <div className="ticket-raise-container">

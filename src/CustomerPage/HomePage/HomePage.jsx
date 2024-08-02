@@ -6,9 +6,7 @@ import kids from "../../Assests/kids.jpg";
 import winter from "../../Assests/winter.jpg";
 import wedding from "../../Assests/wedding.jpg";
 import formals from "../../Assests/formals.jpg";
-
 import "./HomePage.css";
-
 const HomePage = () => {
   const categories = [
     {
@@ -39,9 +37,9 @@ const HomePage = () => {
 
   return (
     <div className="home-page-container">
-      {categories.map((item) => {
+      {categories.map((item, index) => {
         return (
-          <div className="category-item">
+          <div key={index} className="category-item">
             <CategoryItem item={item} />
           </div>
         );

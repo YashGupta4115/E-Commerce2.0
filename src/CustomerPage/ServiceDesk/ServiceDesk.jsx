@@ -1,18 +1,19 @@
 import React, { useContext, useState } from "react";
 import "./ServiceDesk.css";
-import { serviceDeskData } from "../../Assests/data";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/userContext";
+import { docContext } from "../../Context/docsContext";
 
 const ServiceDesk = () => {
   const [isFaqOpen, setIsFaqOpen] = useState(false);
   const [openFaqId, setOpenFaqId] = useState(-1);
-  const navigate = useNavigate();
+  const { serviceDeskData } = useContext(docContext);
   const { currentUser } = useContext(UserContext);
 
-  const faqData = serviceDeskData.filter((data) => data.type === "FAQs");
+  const faqData = serviceDeskData["faqs"];
+  const navigate = useNavigate();
 
   const faqToggle = (data) => {
     setOpenFaqId(data.id);

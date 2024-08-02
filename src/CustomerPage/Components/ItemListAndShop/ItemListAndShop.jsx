@@ -1,14 +1,18 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { clothData } from "../../../Assests/data";
 import "./ItemListAndShop.css";
 import { cartContext } from "../../../Context/cartContext";
+import { docContext } from "../../../Context/docsContext";
 
 const ItemListAndShop = () => {
   const { category, type } = useParams();
   const { addItemToCart } = useContext(cartContext);
-  const items = clothData.filter(
-    (item) => item.type === category && item.wearType === type
+  const { clothData } = useContext(docContext);
+  if (!clothData[category.toLowerCase()]) {
+    return <div>Category not found</div>;
+  }
+  const items = clothData[category.toLowerCase()].filter(
+    (item) => item.wearType === type
   );
 
   const addItemToCartHandler = (item) => {

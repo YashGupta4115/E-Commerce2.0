@@ -13,6 +13,9 @@ import { getAuth,
     doc,
     getDoc,
     setDoc,
+    collection,
+    getDocs,
+    updateDoc,
  }  from "firebase/firestore";
 
 const firebaseConfig = {
@@ -34,43 +37,104 @@ const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
     prompt: "select_account" // Forces the user to select an account
 });
-
 export const auth = getAuth();
 export const signInWithGooglePopUp = () => signInWithPopup(auth, provider);
-
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const addGroupedDataToFirestore = async (collectionKey, objects) => {
+  const collectionRef = collection(db, collectionKey);
 
-    if(!auth) return;
-
-    const userDocRef = doc(db, 'users', userAuth.uid);
-    const userSnapshot = await getDoc(userDocRef);
-
-    if(!userSnapshot.exists()){
-        const { displayName, email } = userAuth;
-        const createdAt = new Date();
-
-        try{
-            await setDoc(userDocRef, { displayName, email, createdAt});
-        } catch(error){
-            console.log('error creating user', error.message);
-        }
+  // Group items by type
+  const groupedData = objects.reduce((acc, obj) => {
+    const type = obj.type.toLowerCase();
+    if (!acc[type]) {
+      acc[type] = [];
     }
+    acc[type].push(obj);
+    return acc;
+  }, {});
 
-    return userDocRef;
+  // Upload each type as a separate document
+  for (const [type, items] of Object.entries(groupedData)) {
+    const docRef = doc(collectionRef, type);
+    await setDoc(docRef, { items });
+  }
+
+  console.log('All documents added successfully');
+};
+export const getCategoriesAndDocuments = async (collectionKey) => {
+  const collectionRef = collection(db, collectionKey);
+  const querySnapshot = await getDocs(collectionRef);
+
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const data = docSnapshot.data();
+    const type = docSnapshot.id;
+    if (data && data.items) {
+      acc[type] = data.items;
+    }
+    return acc;
+  }, {});
+  return categoryMap;
+};
+export const getAuthDocuments = async (uid) => {
+  if (!uid) return null;
+  try {
+    const userDoc = await getDoc(doc(db, 'users', uid));
+    return { uid, ...userDoc.data() };
+  } catch (error) {
+    console.error("Error fetching user document:", error);
+    return null;
+  }
+};
+export const createUserDocumentFromAuth = async (userAuth) => {
+  const userDocRef = doc(db, 'users', userAuth.uid);
+
+  console.log(userDocRef);
+  const userSnapShot = await getDoc(userDocRef);
+  console.log(userSnapShot);
+  
+
+  if(!userSnapShot.exists()){
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    const queries = null;
+    const cart = null;
+
+    try{
+      await setDoc(userDocRef,{displayName, email, createdAt,queries,cart});
+    }catch(error){
+      console.log('error creating the user');
+    }
+  }
+  console.log(userSnapShot.exists());
+  return userDocRef;
+}
+export const updateCartItems = async (userId, cartItems) => {
+  try {
+    const userDocRef = doc(db, 'users', userId);
+    await updateDoc(userDocRef, { cart: cartItems });
+    console.log('Cart items updated successfully');
+  } catch (error) {
+    console.error('Error updating cart items:', error);
+  }
+};
+export const updateQueryItems  = async (userId, queryItems) => {
+  try{
+    console.log(queryItems);
+    const userDocRef = doc(db,'users', userId);
+    await updateDoc(userDocRef, {queries: queryItems});
+    console.log('Query items updated');
+  } catch( error){
+    console.log('Error updating query items:', error);
+  }
 }
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
     if(!email || !password) return;
-
     return createUserWithEmailAndPassword(auth,email, password);
 } 
-
 export const signInAuthWithEmailAndPassword = async (email, password) => {
     if(!email || !password) return;
-
     return signInWithEmailAndPassword(auth, email, password);
 }
-
 export const signOutAuth = async() => await signOut(auth);

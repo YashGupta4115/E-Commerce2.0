@@ -7,6 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './Context/userContext';
 import { CartContextProvider } from './Context/cartContext';
 import { SearchContextProvider } from './Context/searchContext';
+import { DocContextProvider } from './Context/docsContext';
+import { QueryContextProvoder } from './Context/queryContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +17,11 @@ root.render(
     <UserProvider>
       <SearchContextProvider>
       <CartContextProvider>
+        <DocContextProvider>
+          <QueryContextProvoder>
     <App />
+          </QueryContextProvoder>
+        </DocContextProvider>
       </CartContextProvider>
       </SearchContextProvider>
     </UserProvider>
