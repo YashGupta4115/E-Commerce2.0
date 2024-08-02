@@ -1,13 +1,6 @@
 import { createContext, useState } from "react";
 
-export const UserContext = createContext({
-  currentEmp: null,
-  setCurrentEmp: () => null,
-  currentUser: null,
-  setCurrentUser: () => null,
-  isAuthDropDownOpen: false,
-  setIsAuthDropDownOpen: () => null,
-});
+export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [currentEmp, setCurrentEmp] = useState(null);
