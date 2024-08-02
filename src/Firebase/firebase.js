@@ -86,13 +86,37 @@ export const getAuthDocuments = async (uid) => {
     return null;
   }
 };
+
+export const createQueryDocumentOnFireStore = async (newQuery) => {
+  try {
+    const docRef = doc(db, 'serviceDeskData', 'queries');
+    
+    // Fetch the current document
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      // Document exists, update it
+      const data = docSnap.data();
+      const existingQueries = data.queries || [];
+      
+      // Append the new query to the existing queries
+      const updatedQueries = [...existingQueries, newQuery];
+      
+      // Update the document with the new list of queries
+      await updateDoc(docRef, { queries: updatedQueries });
+      console.log('Query added successfully!');
+    } else {
+      // Document does not exist, create it with the new query
+      await setDoc(docRef, { queries: [newQuery] });
+      console.log('Document created and query added successfully!');
+    }
+  } catch (error) {
+    console.error('Error updating document:', error);
+  }
+}
 export const createUserDocumentFromAuth = async (userAuth) => {
   const userDocRef = doc(db, 'users', userAuth.uid);
-
-  console.log(userDocRef);
-  const userSnapShot = await getDoc(userDocRef);
-  console.log(userSnapShot);
-  
+  const userSnapShot = await getDoc(userDocRef); 
 
   if(!userSnapShot.exists()){
     const { displayName, email } = userAuth;
@@ -127,7 +151,6 @@ export const updateQueryItems  = async (userId, queryItems) => {
     console.log('Error updating query items:', error);
   }
 }
-
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
     if(!email || !password) return;
     return createUserWithEmailAndPassword(auth,email, password);

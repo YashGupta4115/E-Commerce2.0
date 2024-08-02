@@ -1,4 +1,6 @@
 import { queryContext } from "../../../Context/queryContext";
+import { UserContext } from "../../../Context/userContext";
+import { createQueryDocumentOnFireStore } from "../../../Firebase/firebase";
 import "./TicketRaiser.css";
 import React, { useContext, useState } from "react";
 
@@ -7,11 +9,17 @@ const TicketRaiser = () => {
   const [orderTitle, setTitle] = useState(null);
   const [descp, setDescp] = useState(null);
   const { addQueries } = useContext(queryContext);
-  const handleTicketRaiser = () => {
+  const { currentUser } = useContext(UserContext);
+  const handleTicketRaiser = async () => {
     const createdAt = new Date();
     const status = "pending";
-    const issue = { issueLevel, orderTitle, descp, createdAt, status };
+    let user = null;
+    if (currentUser) {
+      user = currentUser.uid;
+    }
+    const issue = { issueLevel, orderTitle, descp, createdAt, status, user };
     addQueries(issue);
+    await createQueryDocumentOnFireStore(issue);
   };
   return (
     <div className="ticket-raise-container">

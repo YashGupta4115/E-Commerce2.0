@@ -23,7 +23,7 @@ const Home = () => {
             {<span className={titleTransition}>Customer</span>}
           </div>
         </Link>
-        <Link to="/adminAuth">
+        <Link to="https://admin-dashboard-by-yashgupta.netlify.app/">
           <div className="choice transition2" target="blank">
             <img className="choice-logo" src={adminLogo} alt="adminLogo" />
             {<span className={titleTransition}>Admin</span>}
