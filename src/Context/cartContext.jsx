@@ -5,7 +5,7 @@ import { UserContext } from "./userContext";
 export const cartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState({});
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +16,7 @@ export const CartContextProvider = ({ children }) => {
       if (currentUser) {
         setIsLoading(true);
         const fetchedCartItems = await getAuthDocuments(currentUser.uid);
-        setCartItems(fetchedCartItems.cart);
+        setCartItems(fetchedCartItems?.cart || {});
         setIsLoading(false);
       }
     };
@@ -24,11 +24,14 @@ export const CartContextProvider = ({ children }) => {
   }, [currentUser]);
 
   useEffect(() => {
+    if (!cartItems || isLoading) return;
+
     const newTotalPrice = Object.values(cartItems).reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
     setTotalPrice(newTotalPrice);
+
     if (currentUser && !isLoading) {
       updateCartItems(currentUser.uid, cartItems);
     }
