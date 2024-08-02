@@ -15,17 +15,21 @@ const SignInCust = () => {
   const [password, setPassword] = useState("");
   const { setCurrentUser } = useContext(UserContext);
 
-  // Handling user state change
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      if (user) {
-        navigate("/ecommerce");
+    const unsubscribe = auth.onAuthStateChanged(
+      (user) => {
+        setCurrentUser(user);
+        if (user != null) {
+          navigate("/ecommerce");
+        }
+      },
+      (error) => {
+        console.error("Auth state change error:", error);
       }
-    });
+    );
 
     return () => unsubscribe();
-  }, [setCurrentUser, navigate]); // Added `navigate` to the dependency array
+  }, [setCurrentUser, navigate]);
   // Google Sign-In handler
   const logGoogleUser = async () => {
     try {
