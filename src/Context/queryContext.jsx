@@ -4,9 +4,8 @@ import { getAuthDocuments, updateQueryItems } from "../Firebase/firebase";
 
 export const queryContext = createContext();
 
-export const QueryContextProvoder = ({ children }) => {
+export const QueryContextProvider = ({ children }) => {
   const [queries, setQueries] = useState([]);
-
   const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useContext(UserContext);
 
@@ -15,7 +14,7 @@ export const QueryContextProvoder = ({ children }) => {
       if (currentUser) {
         setIsLoading(true);
         const response = await getAuthDocuments(currentUser.uid);
-        setQueries(response.queries);
+        setQueries(response?.queries ?? []); // Default to an empty array if response.queries is null/undefined
         setIsLoading(false);
       }
     };
@@ -29,11 +28,21 @@ export const QueryContextProvoder = ({ children }) => {
   }, [queries, currentUser, isLoading]);
 
   const addQueries = (queryItem) => {
-    setQueries([...queries, queryItem]);
+    setQueries((prevQueries) => {
+      if (!Array.isArray(prevQueries)) {
+        prevQueries = []; // Ensure prevQueries is an array
+      }
+      return [...prevQueries, queryItem];
+    });
   };
 
   const removeQueries = (queryItemId) => {
-    setQueries(queries.filter((query) => query.id !== queryItemId));
+    setQueries((prevQueries) => {
+      if (!Array.isArray(prevQueries)) {
+        prevQueries = []; // Ensure prevQueries is an array
+      }
+      return prevQueries.filter((query) => query.id !== queryItemId);
+    });
   };
 
   const value = {

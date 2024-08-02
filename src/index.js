@@ -8,7 +8,7 @@ import { UserProvider } from './Context/userContext';
 import { CartContextProvider } from './Context/cartContext';
 import { SearchContextProvider } from './Context/searchContext';
 import { DocContextProvider } from './Context/docsContext';
-import { QueryContextProvoder } from './Context/queryContext';
+import { QueryContextProvider } from './Context/queryContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,9 +18,9 @@ root.render(
       <SearchContextProvider>
       <CartContextProvider>
         <DocContextProvider>
-          <QueryContextProvoder>
+          <QueryContextProvider>
     <App />
-          </QueryContextProvoder>
+          </QueryContextProvider>
         </DocContextProvider>
       </CartContextProvider>
       </SearchContextProvider>

@@ -9,9 +9,14 @@ const AllItems = () => {
   const { searchText } = useContext(searchContext);
   const { addItemToCart } = useContext(cartContext);
   const { clothData } = useContext(docContext);
-  let filteredItems = clothData.filter((item) => {
-    return item.wearType.toLowerCase().includes(searchText.toLowerCase());
-  });
+
+  let filteredItems = Object.values(clothData)
+    .flat() // Flatten the array of arrays into a single array
+    .filter((item) => {
+      // Check if wearType includes the searchText
+      return item.wearType.toLowerCase().includes(searchText.toLowerCase());
+    });
+  console.log(filteredItems);
 
   return (
     <div className="allItems-container">
