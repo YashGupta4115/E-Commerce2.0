@@ -1,6 +1,9 @@
 import React, { useEffect, useReducer, useState } from "react";
 import "./SignUp.css";
-import { createAuthUserWithEmailAndPassword } from "../../../Firebase/firebase";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../../../Firebase/firebase";
 
 export const Modal = ({ modalContent, closeModal }) => {
   useEffect(() => {
@@ -82,11 +85,11 @@ const SignUp = () => {
       dispatch({ type: "PASSWORD_NOT_MATCHING" });
     } else {
       try {
-        const response = await createAuthUserWithEmailAndPassword(
+        const { user } = await createAuthUserWithEmailAndPassword(
           formData.email,
           formData.password
         );
-        console.log(response);
+        await createUserDocumentFromAuth(user);
 
         setFormData({
           email: "",

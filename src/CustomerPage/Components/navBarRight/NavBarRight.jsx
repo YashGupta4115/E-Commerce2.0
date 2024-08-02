@@ -51,7 +51,11 @@ const NavBarRight = () => {
           onClick={() => setIsAuthDropDownOpen(!isAuthDropDownOpen)}
         >
           {currentUser ? (
-            <div>{currentUser.displayName}</div>
+            <div>
+              {currentUser.displayName
+                ? currentUser.displayName
+                : "logged User"}
+            </div>
           ) : (
             <FaUser className="general-icon-styles" />
           )}

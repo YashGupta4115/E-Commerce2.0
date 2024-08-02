@@ -120,7 +120,6 @@ export const updateCartItems = async (userId, cartItems) => {
 };
 export const updateQueryItems  = async (userId, queryItems) => {
   try{
-    console.log(queryItems);
     const userDocRef = doc(db,'users', userId);
     await updateDoc(userDocRef, {queries: queryItems});
     console.log('Query items updated');
