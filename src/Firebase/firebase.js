@@ -14,8 +14,8 @@ import { getAuth,
     getDoc,
     setDoc,
     collection,
-    getDocs,
     updateDoc,
+    getDocs,
  }  from "firebase/firestore";
 
 const firebaseConfig = {

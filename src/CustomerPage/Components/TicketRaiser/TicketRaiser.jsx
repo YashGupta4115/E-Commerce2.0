@@ -10,16 +10,36 @@ const TicketRaiser = () => {
   const [descp, setDescp] = useState(null);
   const { addQueries } = useContext(queryContext);
   const { currentUser } = useContext(UserContext);
+
   const handleTicketRaiser = async () => {
     const createdAt = new Date();
     const status = "pending";
+    const assignedTo = "none";
     let user = null;
+    const now = new Date();
+    const seconds = Math.floor(now.getTime() / 1000); // Get seconds
+    const milliseconds = now.getMilliseconds(); // Get milliseconds
+    const queryId = now + seconds + milliseconds;
+    console.log(queryId);
     if (currentUser) {
       user = currentUser.uid;
     }
-    const issue = { issueLevel, orderTitle, descp, createdAt, status, user };
+    const issue = {
+      queryId,
+      issueLevel,
+      orderTitle,
+      descp,
+      createdAt,
+      status,
+      user,
+      assignedTo,
+    };
     addQueries(issue);
     await createQueryDocumentOnFireStore(issue);
+    setIssueLevel("");
+    setTitle("");
+    setDescp("");
+    alert("query raised successfully");
   };
   return (
     <div className="ticket-raise-container">
