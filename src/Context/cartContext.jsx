@@ -7,6 +7,7 @@ export const cartContext = createContext();
 export const CartContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isNoficationOpen, setIsNoficationOpen] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useContext(UserContext);
@@ -86,6 +87,8 @@ export const CartContextProvider = ({ children }) => {
     removeItemFromCart,
     reduceItemQuantity,
     totalPrice,
+    isNoficationOpen,
+    setIsNoficationOpen,
   };
 
   return <cartContext.Provider value={value}>{children}</cartContext.Provider>;

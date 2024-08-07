@@ -3,6 +3,7 @@ import { RiSearchLine } from "react-icons/ri";
 import { FaLanguage } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
+import { CiBellOn } from "react-icons/ci";
 
 import "./NavBarRight.css";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +14,7 @@ import AuthDropDown from "../AuthDropDown/AuthDropDown";
 
 const NavBarRight = () => {
   const navigate = useNavigate();
-  const { setIsCartOpen } = useContext(cartContext);
+  const { setIsCartOpen, setIsNoficationOpen } = useContext(cartContext);
   const { setSearchText } = useContext(searchContext);
   const { currentUser, isAuthDropDownOpen, setIsAuthDropDownOpen } =
     useContext(UserContext);
@@ -35,11 +36,19 @@ const NavBarRight = () => {
           onClick={onSearchHandler}
         />
       </div>
+
       <div
         className="cart-container"
         onClick={() => setIsCartOpen((prev) => !prev)}
       >
         <HiOutlineShoppingCart className="general-icon-styles" />
+      </div>
+
+      <div
+        className="cart-container"
+        onClick={() => setIsNoficationOpen((prev) => !prev)}
+      >
+        <CiBellOn className="general-icon-styles" />
       </div>
 
       <div className="langaugeToggle-container">

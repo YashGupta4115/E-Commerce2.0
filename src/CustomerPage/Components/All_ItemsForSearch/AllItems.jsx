@@ -16,7 +16,6 @@ const AllItems = () => {
       // Check if wearType includes the searchText
       return item.wearType.toLowerCase().includes(searchText.toLowerCase());
     });
-  console.log(filteredItems);
 
   return (
     <div className="allItems-container">

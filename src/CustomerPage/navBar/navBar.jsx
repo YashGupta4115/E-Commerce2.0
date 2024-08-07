@@ -6,9 +6,10 @@ import "./navBar.css";
 import { Outlet } from "react-router-dom";
 import { cartContext } from "../../Context/cartContext";
 import CartDropDown from "../Components/CartDropDown/CartDropDown";
+import NotificationDropDown from "../Components/NotificationDropDown/NotificationDropDown";
 
 const NavBar = () => {
-  const { isCartOpen } = useContext(cartContext);
+  const { isCartOpen, isNoficationOpen } = useContext(cartContext);
   return (
     <>
       <div className="navBar-container">
@@ -25,6 +26,7 @@ const NavBar = () => {
       <Outlet />
 
       {isCartOpen && <CartDropDown />}
+      {isNoficationOpen && <NotificationDropDown />}
     </>
   );
 };

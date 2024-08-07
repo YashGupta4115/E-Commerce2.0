@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from './Components/Home/Home';
-import SignIn from './Components/Auth/SignIn';
 import NavBar from './CustomerPage/navBar/navBar';
 import HomePage from './CustomerPage/HomePage/HomePage';
 import CategoryItemLanding from "./CustomerPage/Components/CategoryItemLanding/CategoryItemLanding";
@@ -19,7 +18,6 @@ function App() {
     <div className="App">
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/adminAuth" element={<SignIn />} />
         <Route path="/ecommerce" element={<NavBar />}>
           <Route index element={<HomePage />} />
           <Route path=":category" element={<CategoryItemLanding />} />
@@ -31,7 +29,7 @@ function App() {
           <Route path='serviceDesk/raise-a-ticket' element={<TicketRaiser/>} />
           <Route path='serviceDesk/allIssues' element={<AllIssues/>}/>
         </Route>
-        
+        sdfdsf
       </Routes>
     </div>
   );
